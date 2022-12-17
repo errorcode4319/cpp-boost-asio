@@ -1,24 +1,30 @@
 #include <iostream>
+#include <cstdint>
 #include <boost/asio.hpp>
 
 using namespace boost;
 
 int main() {
 
+    uint16_t port_num = 3333;
+    asio::ip::tcp::endpoint ep(
+        asio::ip::address_v4::any(), port_num 
+    );
+
     asio::io_service ios;
-
-    asio::ip::tcp protocol = asio::ip::tcp::v6();
-
-    asio::ip::tcp::acceptor acceptor(ios);
+    asio::ip::tcp::acceptor acceptor(ios, ep.protocol());
 
     boost::system::error_code ec;
-    acceptor.open(protocol, ec);
+
+    acceptor.bind(ep, ec);
 
     if (ec.value() != 0) {
-        std::cout << "Failed to open acceptor socket, Error code = " 
+        std::cout << "Failed to bind acceptor socket, Error code = " 
         << ec.value() << ". Message: " << ec.message();
-        return 1;
+        return ec.value();
     }
+
+
 
     return 0;
 }
