@@ -1,0 +1,23 @@
+cmake_minimum_required(VERSION 3.0)
+project(boost_002_io)
+
+set(CMAKE_CXX_STANDARD 17)
+
+find_package(Boost)
+
+if(Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS})
+endif()
+add_executable(001_constbuf         001_const_buffer.cpp)
+add_executable(002_mutbuf           002_mutable_buffer.cpp)
+add_executable(001-2_cbuf_seq       001-2_cbuf_sequence.cpp)
+add_executable(003_stream_buffer    003_stream_buffer.cpp)
+add_executable(004_buffer_write     004_buffer_write.cpp)
+add_executable(005_buffer_read      005_buffer_read.cpp)
+add_executable(004-2_buffer_write_async     004-2_buffer_write_async.cpp)
+add_executable(004-3_buffer_write_async2    004-3_buffer_write_async2.cpp)
+add_executable(005-2_buffer_read_async      005-2_buffer_read_async.cpp)
+add_executable(005-3_buffer_read_async      005-3_buffer_read_async2.cpp)
+add_executable(006_async_cancel     006_async_cancel.cpp)
+add_executable(007_shutdown_client  007_shutdown_client.cpp)
+add_executable(008_shutdown_server  008_shutdown_server.cpp)
