@@ -9,6 +9,8 @@ if (Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
 endif()
 
-file (GLOB sources *.cpp *.hpp)
+message("${PROJECT_SOURCE_DIR}")
 
-add_executable(boost_http sources)
+file(GLOB SOURCE_FILES *.cpp *.hpp)
+
+add_executable(boost_http ${SOURCE_FILES})
