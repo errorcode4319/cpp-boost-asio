@@ -38,25 +38,24 @@ public:
             case invalid_response:
                 return "Server response cannot be parsed."; 
                 break;
-            default:
-                [[passthrough]]
         }
         return "Unknown error.";
     }
 
-    const boost::system::error_category& get_http_errors_category() {
+    static const boost::system::error_category& instance() {
         static http_errors_category cat;
         return cat; 
     }
 
-    boost::system::error_code make_error_code(http_error_codes e) {
-        return boost::system::error_code(
-            static_cast<int>(e), get_http_errors_category());
-    }
-
 };  // http_errors_category 
 
+inline boost::system::error_code make_error_code(http_error_codes e) {
+    return boost::system::error_code(static_cast<int>(e), http_errors_category::instance());
+}
+
 }   // http_errors
+
+
 
 namespace boost::system {
 

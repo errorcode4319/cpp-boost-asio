@@ -69,7 +69,7 @@ void HttpRequest::OnConnectionEstablished(
     if (OnError(ec)) return;
     if (IsCancelled()) return; 
 
-    m_request_buf += "GET " + m_uri + " HTTP/1.1\r\n";
+    m_request_buf += m_method + " " + m_uri + " HTTP/1.1\r\n";
     m_request_buf += "Host: " + m_host + "\r\n";
     m_request_buf += "\r\n";
 
@@ -105,6 +105,13 @@ void HttpRequest::OnStatusLineReceived(
     std::istream response_stream(
         &m_response.GetMessageBuf());
     response_stream >> http_version;
+    
+    if (http_version != "HTTP/1.1") {
+        OnFinish(http_errors::invalid_response);
+        return;
+    }
+    
+    response_stream >> status_code_s;
 
     uint32_t status_code = 200;
 
