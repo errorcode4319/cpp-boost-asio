@@ -14,7 +14,10 @@
 
 #include <boost/asio.hpp>
 
+#include <filesystem>
+#include <fstream>
 #include <thread>
+#include <atomic>
 #include <mutex>
 #include <memory>
 #include <functional>
